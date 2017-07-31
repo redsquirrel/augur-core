@@ -29,7 +29,7 @@ contract Stack {
          return (uint(1));
     }    
 
-    function pop() returns (var) {
+    function pop() returns (uint) {
          uint index = this.head;
          require(index != 0);
          this.head = index - 1;
@@ -38,7 +38,7 @@ contract Stack {
          return (removedValue);
     }
 
-    function peek() returns (var) {
+    function peek() returns (uint) {
          uint index = this.head;
          require(index != 0);
          return (this.collection[index]);

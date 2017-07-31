@@ -5,14 +5,14 @@ import 'ROOT/Controller.sol';
 contract IterableMap {
 
     struct Item {
-        uint hasItem;
-        var value;
-        var offset;
+        bool hasItem;
+        uint256 value;
+        uint256 offset;
     }
 
     address owner;
-    uint initialied;
-    var[] itemsArray;
+    bool initialized;
+    uint256[] itemsArray;
     Item[] itemsMap;
     uint numberOfItems;
 
@@ -29,7 +29,7 @@ contract IterableMap {
          return (uint(1));
     }
 
-    function add(var key, var value) returns (uint) {
+    function add(uint256 key, uint256 value) returns (uint) {
          require(!this.contains(key));
          this.itemsArray[this.numberOfItems] = key;
 	     this.itemsMap[key].hasValue = true;
@@ -39,13 +39,13 @@ contract IterableMap {
          return (uint(1));
     }
 
-    function update(var key, var value) returns (uint) {
+    function update(uint256 key, uint256 value) returns (uint) {
          require(this.contains(key));
          this.itemsMap[key].value = value;
          return (uint(1));
     }
 
-    function addOrUpdate(var key, var value) returns (uint) {
+    function addOrUpdate(uint256 key, uint256 value) returns (uint) {
         if (!this.contains(key)) {
             this.add(key, value);
         } 
@@ -57,9 +57,9 @@ contract IterableMap {
         return (uint(1));
     }
 
-    function remove(var key) returns (uint) {
+    function remove(uint256 key) returns (uint) {
 	    require(this.contains(key));
-        var keyRemovedOffset = this.itemsMap[key].offset;
+        uint256 keyRemovedOffset = this.itemsMap[key].offset;
         this.itemsArray[keyRemovedOffset] = 0;
         this.itemsMap[key].hasValue = false;
         this.itemsMap[key].value = 0;
@@ -67,7 +67,7 @@ contract IterableMap {
         
         if (this.numberOfItems > 1 && keyRemovedOffset != (this.numberOfItems - 1)) {
         /* move tail item in collection to the newly opened slot from the key we just removed if not last or only item being removed */
-            var tailItemKey = this.getByOffset(this.numberOfItems - 1);
+            uint256 tailItemKey = this.getByOffset(this.numberOfItems - 1);
             this.itemsArray[this.numberOfItems - 1] = 0;
             this.itemsArray[keyRemovedOffset] = tailItemKey;
             this.itemsMap[tailItemKey].offset = this.numberOfItems - 2;
@@ -77,21 +77,21 @@ contract IterableMap {
         return (uint(1));
     }
 
-    function getByKeyOrZero(var key) returns (var) {
+    function getByKeyOrZero(uint256 key) returns (uint256) {
         return this.itemsMap[key].value;
     }
 
-    function getByKey(var key) returns (var) {
+    function getByKey(uint256 key) returns (uint256) {
         require(this.itemsMap[key].hasValue);
         return (this.itemsMap[key].value);
     }
    
-    function getByOffset(var offset) returns (var) {
+    function getByOffset(uint256 offset) returns (uint256) {
         require(0 <= offset && offset < this.numberOfItems);
         return this.itemsArray[offset];
     }
 
-    function contains(var key) returns (uint) {
+    function contains(uint256 key) returns (uint) {
         if (this.itemsMap[key].hasValue) {
             return (uint(1));
 	}
