@@ -28,7 +28,7 @@ contract StackUint256 is DelegationTarget, Ownable {
         require(_index != 0);
         head = _index - 1;
         uint256 _removedValue = collection[_index];
-        collection[_index] = 0;
+        delete collection[_index];
         return (_removedValue);
     }
 
