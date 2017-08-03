@@ -5,7 +5,7 @@ import "ROOT/legacy_reputation/Ownable.sol";
 
 contract IterableMapUint256 is DelegationTarget, Ownable {
 
-    public struct Item {
+    struct Item {
         bool hasItem;
         uint256 value;
         uint256 offset;
