@@ -17,27 +17,27 @@ contract IterableMapUint256 is DelegationTarget, Ownable {
     mapping(uint256 => Item) public itemsMap;
 
 
-   function initialize(address _owner) returns (bool) onlyOwner {
-       require(!initialized);
-       initialized = true;
-       owner = _owner;
-       return (true);
-   }
+    function initialize(address _owner) returns (bool) onlyOwner {
+        require(!initialized);
+        initialized = true;
+        owner = _owner;
+        return (true);
+    }
 
-   function add(uint256 _key, uint256 _value) returns (bool) onlyOwner {
-       require(!contains(_key));
-       itemsArray.push(_key);
-       itemsMap[_key].hasValue = true;
-       itemsMap[_key].value = _value;
-       itemsMap[_key].offset = itemsArray.length - 1;
-       return (true);
-   }
+    function add(uint256 _key, uint256 _value) returns (bool) onlyOwner {
+        require(!contains(_key));
+        itemsArray.push(_key);
+        itemsMap[_key].hasValue = true;
+        itemsMap[_key].value = _value;
+        itemsMap[_key].offset = itemsArray.length - 1;
+        return (true);
+    }
 
-   function update(uint256 _key, uint256 _value) returns (bool) onlyOwner {
-       require(contains(_key));
-       itemsMap[_key].value = _value;
-       return (true);
-   }
+    function update(uint256 _key, uint256 _value) returns (bool) onlyOwner {
+        require(contains(_key));
+        itemsMap[_key].value = _value;
+        return (true);
+    }
 
     function addOrUpdate(uint256 _key, uint256 _value) returns (bool) onlyOwner {
         if (!contains(_key)) {
