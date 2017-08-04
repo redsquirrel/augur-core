@@ -17,14 +17,14 @@ contract IterableMapUint256 is DelegationTarget, Ownable {
     mapping(uint256 => Item) private itemsMap;
 
 
-    function initialize(address _owner) public returns (bool) onlyOwner {
+    function initialize(address _owner) public onlyOwner returns (bool) {
         require(!initialized);
         initialized = true;
         owner = _owner;
         return (true);
     }
 
-    function add(uint256 _key, uint256 _value) public returns (bool) onlyOwner {
+    function add(uint256 _key, uint256 _value) public onlyOwner returns (bool) {
         require(!contains(_key));
         itemsArray.push(_key);
         itemsMap[_key].hasValue = true;
@@ -33,13 +33,13 @@ contract IterableMapUint256 is DelegationTarget, Ownable {
         return (true);
     }
 
-    function update(uint256 _key, uint256 _value) public returns (bool) onlyOwner {
+    function update(uint256 _key, uint256 _value) public onlyOwner returns (bool) {
         require(contains(_key));
         itemsMap[_key].value = _value;
         return (true);
     }
 
-    function addOrUpdate(uint256 _key, uint256 _value) public returns (bool) onlyOwner {
+    function addOrUpdate(uint256 _key, uint256 _value) public onlyOwner returns (bool) {
         if (!contains(_key)) {
             add(_key, _value);
         } else {
@@ -49,7 +49,7 @@ contract IterableMapUint256 is DelegationTarget, Ownable {
         return (true);
     }
 
-    function remove(uint256 _key) public returns (bool) onlyOwner {
+    function remove(uint256 _key) public onlyOwner returns (bool) {
         
         require(contains(_key));
         uint256 _keyRemovedOffset = itemsMap[_key].offset;
@@ -70,25 +70,25 @@ contract IterableMapUint256 is DelegationTarget, Ownable {
     
     }
 
-    function getByKeyOrZero(uint256 _key) public returns (uint256) constant {
+    function getByKeyOrZero(uint256 _key) public constant returns (uint256) {
         return itemsMap[_key].value;
     }
 
-    function getByKey(uint256 _key) public returns (uint256) constant {
+    function getByKey(uint256 _key) public constant returns (uint256) {
         require(itemsMap[_key].hasValue);
         return (itemsMap[_key].value);
     }
 
-    function getByOffset(uint256 _offset) public returns (uint256) constant {
+    function getByOffset(uint256 _offset) public constant returns (uint256) {
         require(0 <= _offset && _offset < itemsArray.length);
         return itemsArray[_offset];
     }
 
-    function contains(uint256 _key) public returns (bool) constant {
+    function contains(uint256 _key) public constant returns (bool) {
         return itemsMap[_key].hasValue;
     }
 
-    function count() public returns (uint256) constant {
+    function count() public constant returns (uint256) {
         return itemsArray.length;
     }
 }

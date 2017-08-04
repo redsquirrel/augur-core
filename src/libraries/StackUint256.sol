@@ -10,20 +10,20 @@ contract StackUint256 is DelegationTarget, Ownable {
     address private owner;
     bool private initialized;
 
-    function initialize(address _owner) public returns (bool) onlyOwner {
+    function initialize(address _owner) public onlyOwner returns (bool) {
         require(!initialized);
         initialized = true;
         owner = _owner;
         return (true);
     }
 
-    function push(uint256 _item) public returns (bool) onlyOwner {
+    function push(uint256 _item) public onlyOwner returns (bool) {
         head += 1;
         collection.push(_item);
         return (true);
     }    
 
-    function pop() public returns (uint256) onlyOwner {
+    function pop() public onlyOwner returns (uint256) {
         uint256 _index = head;
         require(_index != 0);
         head = _index - 1;
@@ -32,12 +32,12 @@ contract StackUint256 is DelegationTarget, Ownable {
         return (_removedValue);
     }
 
-    function peek() public returns (uint256) constant {
+    function peek() public constant returns (uint256) {
         require(head != 0);
         return (collection[head]);
     }
 
-    function isEmpty() public returns (bool) constant {
+    function isEmpty() public constant returns (bool) {
          return (head == 0);
     }
 }

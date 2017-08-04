@@ -16,14 +16,14 @@ contract MapUint256 is DelegationTarget, Ownable {
     uint256 private count;
     
 
-    function initialize(address _owner) public returns (bool) onlyOwner {
+    function initialize(address _owner) public onlyOwner returns (bool) {
         require(!initialized);
         initialized = true;
         owner = _owner;
         return (true);
     }
 
-    function addMapItem(uint256_key, uint256_value) public returns (bool) onlyOwner {
+    function addMapItem(uint256_key, uint256_value) public onlyOwner returns (bool) {
         require(!contains(_key));
         collection[_key].hasValue = true;
         collection[_key].value = _value;
@@ -31,7 +31,7 @@ contract MapUint256 is DelegationTarget, Ownable {
         return (true);
     }
 
-    function remove(uint256 _key) public returns (bool) onlyOwner {
+    function remove(uint256 _key) public onlyOwner returns (bool) {
         require(contains(_key));
         delete collection[_key].hasValue;
         delete collection[_key].value;
@@ -39,20 +39,20 @@ contract MapUint256 is DelegationTarget, Ownable {
         return (true);
     }
 
-    function contains(uint256 _key) public returns (bool) constant {
+    function contains(uint256 _key) public constant returns (bool) {
         return(collection[_key].hasValue); 
     } 
 
-    function getValueOrZero(uint256 _key) public returns (uint256) constant {
+    function getValueOrZero(uint256 _key) public constant returns (uint256) {
         return(collection[_key].value);
     }
 
-    function getValue(uint256 _key) public returns (uint256) constant {
+    function getValue(uint256 _key) public constant returns (uint256) {
         require(contains(_key));
         return(collection[_key].value);
     }
 
-    function count() public returns (uint256) constant {
+    function count() public constant returns (uint256) {
         return (count);
     }
 }
