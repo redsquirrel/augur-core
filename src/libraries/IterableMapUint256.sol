@@ -54,7 +54,7 @@ contract IterableMapUint256 is DelegationTarget, Ownable {
         require(contains(_key));
         uint256 _keyRemovedOffset = itemsMap[_key].offset;
         delete itemsArray[_keyRemovedOffset];
-        itemsMap[_key].hasValue = false;
+        delete itemsMap[_key].hasValue;
         delete itemsMap[_key].value;
         delete itemsMap[_key].offset;
 
