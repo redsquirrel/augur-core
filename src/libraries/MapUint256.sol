@@ -40,16 +40,16 @@ contract MapUint256 is DelegationTarget, Ownable {
     }
 
     function contains(uint256 _key) public constant returns (bool) {
-        return(collection[_key].hasValue); 
+        return (collection[_key].hasValue); 
     } 
 
     function getValueOrZero(uint256 _key) public constant returns (uint256) {
-        return(collection[_key].value);
+        return (collection[_key].value);
     }
 
     function getValue(uint256 _key) public constant returns (uint256) {
         require(contains(_key));
-        return(collection[_key].value);
+        return (collection[_key].value);
     }
 
     function count() public constant returns (uint256) {
