@@ -5,10 +5,10 @@ import "ROOT/legacy_reputation/Ownable.sol";
 
 contract StackUint256 is DelegationTarget, Ownable {
     
-    uint256[] public collection;
-    uint256 public head;
-    address public owner;
-    bool public initialized;
+    uint256[] private collection;
+    uint256 private head;
+    address private owner;
+    bool private initialized;
 
     function initialize(address _owner) public returns (bool) onlyOwner {
         require(!initialized);
